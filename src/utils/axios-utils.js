@@ -1,0 +1,20 @@
+import axios from "axios";
+
+const client=axios.create({baseURL:'http://localhost:8000/'})
+
+const request=async ({...options})=>{
+    client.defaults.headers.common.Authorization=`JWT ${localStorage.getItem('access')}`
+    client.defaults.headers.common.Accept='application/json'
+    const onSuccess=response=>response
+    const onError=error=>{
+        console.log(error)
+        throw error
+    }
+    try {
+        const response = await client(options);
+        return onSuccess(response);
+    } catch (error) {
+        return onError(error);
+    }
+}
+export default request
