@@ -4,10 +4,6 @@ import axios from 'axios';
 import { postData } from '../hooks/useDjango';
 
 // Your mutation function
-const submitComplaint = async (newComplaint) => {
-  const response = await axios.post('/api/complaints', newComplaint);
-  return response.data;
-};
 
 export const Complaint=()=> {
   const queryClient = useQueryClient();

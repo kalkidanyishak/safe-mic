@@ -1,6 +1,6 @@
 import { useGet } from "../hooks/useDjango"
 
-export const ListCounselors=()=>{
+export const ListCounselors=({onCounselorChange, counselor})=>{
     const { isLoading, data, error } = useGet('counselors', 'counselor/counselors/')
 
     if(isLoading){
@@ -9,15 +9,13 @@ export const ListCounselors=()=>{
     if(error){
         return <h2>{error.message}</h2>
     }
-    if(data){
-        console.log(data.data)
-    }
     return (
         <>
-        {data?.data.map((val)=><div key={val.id}>
-            <h2>{val.username}</h2>
+        {data?.data.map((val)=><div style={{border:'1px solid red', margin:'5px'}} key={val.id}>
+            <div>{val.username}</div>
             <div>{val.bio}</div>
             <em>{val.gender}</em>
+            <button onClick={()=>onCounselorChange(val.id)} disabled={counselor==val.id}>choose</button>
             </div>)}
         </>
     )
